@@ -1,7 +1,44 @@
-This project is designed to show reading and writing values over bacnet. It uses bacnet-stack, and is implemented using ESP-IDF.
 
-# Usage
+Installation et Configuration
+1. Téléchargement
+Téléchargez ou clonez ce dépôt dans votre espace de travail ESP-IDF.
 
-Flash two ESP32s with the code, and connect them to the same network. When a button is pressed on one, the other will light up. You can manually set the wifi network and other settings in the Kconfig file. You will have to change the device instance number in the code to be unique for each device.
+Note : Ce projet est spécifiquement conçu pour l'architecture ESP32.
 
-![Demo](./demo.gif)
+2. Configuration du Wi-Fi
+Avant de compiler, vous devez renseigner vos identifiants réseau :
+
+Ouvrez le fichier main/wifi.c.
+
+Modifiez les variables SSID et PASSWORD avec vos informations de connexion.
+
+3. Modification du GPIO (Optionnel)
+Par défaut, la sortie est configurée sur le GPIO 23. Pour changer cette broche :
+
+Utilisez le raccourci CTRL + F dans votre éditeur (VS Code ou Espressif IDE).
+
+Recherchez l'occurrence GPIO_NUM_23.
+
+Remplacez-la par votre nouveau numéro de broche dans les deux fichiers suivants :
+
+main/main.c
+
+main/av.c
+
+Build et Flash
+Une fois la configuration terminée, utilisez les commandes standards ESP-IDF :
+
+Bash 
+
+idf.py build
+idf.py flash
+idf.py monitor
+
+Pilotage via YABE
+Lancez YABE sur votre PC.
+
+Ajoutez un "Device" en scannant le réseau (IP/UDP).
+
+Une fois l'ESP32 détecté, cherchez l'objet Analog Value.
+
+Modifiez la valeur : la tension/intensité de la LED connectée au GPIO devrait varier instantanément.
